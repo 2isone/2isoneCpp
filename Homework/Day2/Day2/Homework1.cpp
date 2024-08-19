@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int main()
+void main()
 {
 	float height, weight, bmi;
 

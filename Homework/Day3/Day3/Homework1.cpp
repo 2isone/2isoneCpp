@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int main()
+void main()
 {
 	srand(time(NULL));
 	int playNum = rand() % 10 + 1;
