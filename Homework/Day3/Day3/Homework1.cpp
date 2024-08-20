@@ -34,13 +34,11 @@ void main()
 
 			cout << "싸우는 것을 선택하셨습니다." << endl;
 
-			/////////////////cout << failPercent << " / " << randomPercent << endl;
-
 			if (randomPercent < failPercent)
 			{
 				cout << "고블린에게 공격 당해 사망하셨습니다." << endl;
 				cout << "플레이어가 사망하여 게임이 종료됩니다." << endl;
-				return 0;
+				exit(0);
 			}
 			else
 			{
@@ -53,7 +51,6 @@ void main()
 		else if (playerChoice == 2) //도망치는 것을 선택한 경우
 		{
 			randomPercent = rand() % 100; //랜덤 확률
-			//////////////////////////cout << 10 << " / " << randomPercent << endl;
 
 			cout << "도망치는 것을 선택하셨습니다." << endl;
 
@@ -61,7 +58,7 @@ void main()
 			{
 				cout << "고블린에게서 도망치는 것에 실패했습니다." << endl;
 				cout << "플레이어가 사망하여 게임이 종료됩니다." << endl;
-				return 0;
+				exit(0);
 			}
 			else
 			{
@@ -71,14 +68,13 @@ void main()
 		else
 		{
 			cout << "입력한 숫자가 지원하는 행동이 없습니다." << endl;
-			return 0;
+			exit(0);
 			//주어진 보기가 아닌 다른 숫자를 입력할 경우, 게임에서 퇴장
 		}
 	
 		monsterLevel++;
 
 		cout << endl;
-		////////////////cout << playerLevel << " / " << monsterLevel << endl;
 	}
 
 	cout << "플레이어는 " << playerLevel << " 레벨로 던전을 탈출했습니다." << endl;
