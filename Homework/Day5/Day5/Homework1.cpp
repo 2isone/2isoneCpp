@@ -2,12 +2,181 @@
 
 using namespace std;
 
+#define NUMBER_SIZE 4
+
+int comNum[NUMBER_SIZE] = {};
+int userNum[NUMBER_SIZE] = {};
+bool userNumCheck = false;
+int strike = 0;
+int ball = 0;
+
+void PrintComNum();
+void PrintUserNum();
+
+void ChoiceComNum();
+void ChoiceUserNum();
+void CheckUserNum();
+void CompareNum();
+void ResetValue();
+
+
 void main()
 {
-	// 개인 사정으로 인해 과제할 시간이 부족해서 1번은 진행하지 못했습니다.
-	// 월요일 수업 때, 못한 수요일 과제와 오늘 내주실 금요일 과제 모두 제출하도록 하겠습니다.
+	srand(time(NULL));
+	ChoiceComNum();
+
+	cout << "숫자 야구를 시작합니다." << endl;
+
+	for (int i = 0; i < 9; i++)
+	{
+		while (userNumCheck == false)
+		{
+			ChoiceUserNum();
+			CheckUserNum();
+		}
+		
+		CompareNum();
+		cout << ball << " ball " << strike << " strike" << endl;
+
+		if (strike == NUMBER_SIZE)
+		{
+			cout << "게임에서 승리했습니다." << endl;
+			break;
+		}
+
+		ResetValue();
+	}
+}
+
+//확인용 함수
+void PrintComNum()
+{
+	for (int i = 0; i < NUMBER_SIZE; i++)
+	{
+		cout << comNum[i];
+	}
+
+	cout << endl;
+}
+
+void PrintUserNum()
+{
+	for (int i = 0; i < NUMBER_SIZE; i++)
+	{
+		cout << userNum[i];
+	}
+
+	cout << endl;
+}
+
+//숫자야구 함수
+void ChoiceComNum()
+{
+	int arr[10] = {};
+	for (int i = 0; i < 10; i++)
+	{
+		arr[i] = i;
+	}
+
+	for (int i = 0; i < 100000; i++)
+	{
+		int index1 = rand() % 10;
+		int index2 = rand() % 10;
+
+		int temp = arr[index1];
+		arr[index1] = arr[index2];
+		arr[index2] = temp;
+	}
+
+	if (arr[0] == 0)
+	{
+		for (int i = 0; i < NUMBER_SIZE; i++)
+		{
+			comNum[i] = arr[i + 1];
+		}
+	}
+	else
+	{
+		for (int i = 0; i < NUMBER_SIZE; i++)
+		{
+			comNum[i] = arr[i];
+		}
+	}
+
 
 }
+
+void ChoiceUserNum()
+{
+	int inputNum;
+	cout << "네 자리 숫자를 입력해주십시오." << endl;
+	cin >> inputNum;
+
+	userNum[0] = inputNum / 1000 % 10;
+	userNum[1] = inputNum / 100 % 10;
+	userNum[2] = inputNum / 10 % 10;
+	userNum[3] = inputNum / 1 % 10;
+}
+
+void CheckUserNum()
+{
+	userNumCheck = true;
+
+	for (int i = 0; i < NUMBER_SIZE; i++)
+	{
+		int checkNum1 = userNum[i];
+		for (int j = i + 1; j < NUMBER_SIZE; j++)
+		{
+			if (userNum[i] == userNum[j])
+			{
+				userNumCheck = false;
+			}
+		}
+	}
+
+	if (userNum[0] == 0)
+	{
+		userNumCheck == false;
+	}
+
+}
+
+void CompareNum()
+{
+	for (int i = 0; i < NUMBER_SIZE; i++)
+	{
+		if (comNum[i] == userNum[i])
+		{
+			strike++;
+		}
+
+		for (int j = 0; j < NUMBER_SIZE; j++)
+		{
+			if (i == j)
+			{
+				continue;
+			}
+			if (comNum[i] == userNum[j])
+			{
+				ball++;
+			}
+		}
+	}
+}
+
+void ResetValue()
+{
+	for (int i = 0; i < NUMBER_SIZE; i++)
+	{
+		userNum[i] = 0;
+	}
+
+	userNumCheck = false;
+	ball = 0;
+	strike = 0;
+}
+
+
 
 /*
 	1. 숫자 야구 만들기
