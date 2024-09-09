@@ -19,10 +19,11 @@ int playNum = 0;
 int cardNum = 0;
 int gameResult = (int)NumberCompare::End;
 
-void CardShuffle();
+//함수명 동사로 쓰일 수 있도록 수정
+void ShuffleCard();
 void ChoiceNumAndBatting();
 void PrintCard();
-void PriceBatting();
+void BattingPrice();
 void BattingResult();
 void PrintGameResult();
 bool IsGameProgress();
@@ -36,10 +37,14 @@ void main()
 
 	while (IsGameProgress())
 	{
-		CardShuffle();
-		PriceBatting();
+		ShuffleCard();
+		BattingPrice();
 		ChoiceNumAndBatting();
+
+		cout << "뽑힌 카드는 "; //PrintCard 함수에서 뽑힌 카드~ 제거
 		PrintCard();
+		cout << " 입니다." << endl;
+
 		BattingResult();
 		PrintGameResult();
 		playNum++;
@@ -50,7 +55,7 @@ void main()
 	
 }
 
-void CardShuffle()
+void ShuffleCard()
 {
 	for (int i = 0; i < 52; i++)
 	{
@@ -103,8 +108,6 @@ void ChoiceNumAndBatting()
 
 void PrintCard()
 {
-	cout << "뽑힌 카드는 ";
-
 	switch (card[playNum]/13)
 	{
 	case 0:
@@ -143,13 +146,13 @@ void PrintCard()
 		cout << card[playNum] % 13+1;
 		break;
 	}
-
-	cout << " 입니다." << endl;
 }
 
-void PriceBatting()
+void BattingPrice()
 {
-	while (1)
+	bool isWrongBatting = true;
+
+	while (isWrongBatting) // while(1) 수정
 	{
 		cout << "배팅할 금액을 입력해주십시오." << endl;
 		cin >> battingMoney;
@@ -162,7 +165,7 @@ void PriceBatting()
 		else
 		{
 			cout << battingMoney << "원을 배팅하셨습니다." << endl;
-			break;
+			isWrongBatting = false;
 		}
 	}
 }
